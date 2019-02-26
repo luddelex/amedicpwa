@@ -13,7 +13,7 @@ class ScreeningForm extends React.Component {
             cough: '',                          // BOOL
             coughDays: '',                      // INT
             diarrhoea: '',                      // BOOL
-            diarrhoeaDays: '',                  // BOOL
+            diarrhoeaDays: '',                  // INT
             bloodInStool: '',                   // VARCHAR
             fever: '',                          // INT
             feverDays: '',                      // INT
@@ -27,7 +27,7 @@ class ScreeningForm extends React.Component {
             difficultiesToSee: '',              // BOOL
             difficultiesToSeeDays: '',          // INT
             chestIndraw: '',                    // VARCHAR
-            breathingFreq: '',                      // INT
+            breathingFreq: '',                  // INT
             sleepy: '',                         // VARCHAR
             unconscious: '',                    // VARCHAR
             palmarPalor: '',                    // VARCHAR
@@ -53,8 +53,12 @@ class ScreeningForm extends React.Component {
 
     handleSubmit(event) {
         // TODO: Implement validation here.
+        if(this.state.coughDays === '') { this.setState({coughDays: 0}) }
+        if(this.state.diarrhoeaDays === '') { this.setState({diarrhoeaDays: 0}) }
+        if(this.state.feverDays === '') { this.setState({feverDays: 0}) }
+        if(this.state.redEyesDays === '') { this.setState({redEyesDays: 0}) }
+        if(this.state.difficultiesToSeeDays === '') { this.setState({difficultiesToSeeDays: 0}) }
 
-        alert('Submitted form!');
         console.log(this.state)
         this.setState({submittedForm: true})
         // event.preventDefault();
@@ -62,7 +66,6 @@ class ScreeningForm extends React.Component {
 
     render() {
         return (
-        
             <div class="container">
             <h1>Ask and look assessment form</h1>
                 <Form onSubmit={this.handleSubmit}>
@@ -72,11 +75,11 @@ class ScreeningForm extends React.Component {
                     <Form.Control 
                         readOnly 
                         name="patient" 
-                        value={typeof(this.props.location.patient) === 'undefined' ? 'No patient found.' : this.props.location.patient.name}
+                        value={typeof(this.props.location.state.patient) === 'undefined' ? 'No patient found.' : this.props.location.state.patient.name}
                         onChange={this.handleChange}
                         type="text" 
-                        placeholder={typeof(this.props.location.patient) === 'undefined' ?
-                            'No patient found.' : this.props.location.patient.name}
+                        placeholder={typeof(this.props.location.state.patient) === 'undefined' ?
+                            'No patient found.' : this.props.location.state.patient.name}
                     />
                 </Form.Group>
 
@@ -284,11 +287,11 @@ class ScreeningForm extends React.Component {
                         /> 
                     </Form.Group>
 
-                    <Form.Group controlId="formDifficultiesSeeing">
+                    <Form.Group controlId="formBreathingFreq">
                         <Form.Label>What is the patient breathing frequency?</Form.Label>
                         <Form.Control
                             required={this.state.breathingFreq}
-                            name="difficultiesToSeeDays"
+                            name="breathingFreq"
                             onChange={this.handleChange}
                             value={this.state.breathingFreq}
                             type="number"
@@ -356,8 +359,8 @@ class ScreeningForm extends React.Component {
                         /> 
                     </Form.Group>
 
-                    <Button variant="primary" type="submit">
-                        Submit
+                    <Button className="float-right" variant="primary" type="submit">
+                        Continue
                     </Button>
 
                 </Form>

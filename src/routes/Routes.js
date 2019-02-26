@@ -26,11 +26,12 @@ export const Routes = () => {
                 <Route exact path="/alaf" component={ScreeningForm} />
                 <Route exact path="/alaf/review" component={reviewForm} />
                 <Route exact path="/">
-                    <Redirect to="/home" />
+                    <Redirect to="/patient" />
                 </Route>
                 <Route exact path="/patient" component={PatientFind} />
                 <Route path="/patient/:id" component={ViewPatient} />
                 <Route path="/hsavisit/:patientID/:diagnosisID/:hsaID/:symptomID" component={ViewVisit} />
+                <Route path="/hevisit/:patientID/:diagnosisID/:heID" component={ViewVisit} />
             </Switch>
         </div>
     )

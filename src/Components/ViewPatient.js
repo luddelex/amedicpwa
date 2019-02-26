@@ -1,7 +1,10 @@
 import React from 'react'
-import {Container, Table} from 'react-bootstrap'
+import {Container, Table, Button} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
-import VisitTD from './VisitTD'
+import HSAVisitTD from './HSAVisitTD'
+import HEVisitTD from './HEVisitTD'
+import ScreeningForm from './ScreeningForm'
 
 class ViewPatient extends React.Component {
     constructor(props) {
@@ -11,7 +14,7 @@ class ViewPatient extends React.Component {
             caregivers: null,
             village: {},
             HSA_visits: null,
-            HE_visits: []
+            HE_visits: null
         }
 
         this.printOutCaregivers = this.printOutCaregivers.bind(this)
@@ -30,8 +33,6 @@ class ViewPatient extends React.Component {
                 </div>
                 )
             })
-        } else {
-            return <h1>Hello</h1>
         }
     }
 
@@ -41,11 +42,23 @@ class ViewPatient extends React.Component {
         if(this.state.HSA_visits != null) {
             return this.state.HSA_visits.map(function(visit) {
                 return(
-                    <VisitTD visit={visit} key={visit.patientID + visit.diagnosisID + visit.HSAID + visit.symptomID} />
+                    <HSAVisitTD visit={visit} key={visit.patientID + visit.diagnosisID + visit.HSAID + visit.symptomID} />
                 )
             })
         }
     }
+
+    printOutHEVisits() {
+
+      // Loop through array, printing out each visit.
+      if(this.state.HE_visits != null) {
+          return this.state.HE_visits.map(function(visit) {
+              return(
+                  <HEVisitTD visit={visit} key={visit.patientID + visit.diagnosisID + visit.expertID} />
+              )
+          })
+      }
+  }
 
     componentDidMount(){
 
@@ -90,7 +103,21 @@ class ViewPatient extends React.Component {
             this.setState({
               error
             })
-          })   
+          })
+          
+        // Fetch patient he visits array.
+        fetch(`http://localhost:3000/hevisit/${this.props.match.params.id}`).then(res => res.json())
+        .then(
+          (fetchedHEVisits) => {
+              this.setState({
+              HE_visits: fetchedHEVisits
+            });
+          },
+          (error) => {
+            this.setState({
+              error
+            })
+          })
 
     }
 
@@ -113,6 +140,11 @@ class ViewPatient extends React.Component {
             }
             </div>
 
+            
+            <div class="text-center">
+              <Link to={{ pathname:'/alaf/', state: { patient: this.state.patient } }}><Button variant="primary">Fill out symptoms sheet</Button></Link>
+              <br /><br />
+            </div>
 
             <h2>HSA visits</h2>
             <Table>
@@ -128,6 +160,24 @@ class ViewPatient extends React.Component {
                 {
                 // Check if patient has HSA visits, if so, print out visits, else don't.
                 this.printOutHSAVisits()
+                }
+
+            </Table>
+
+            <h2>HE visits</h2>
+            <Table>
+
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Diagnosis?</th>
+                        <th>Treatment?</th>
+                    </tr>
+                </thead>
+
+                {
+                // Check if patient has HE visits, if so, print out visits, else don't.
+                this.printOutHEVisits()
                 }
 
             </Table>

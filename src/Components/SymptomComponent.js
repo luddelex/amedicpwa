@@ -45,7 +45,7 @@ class SymptomComponent extends React.Component {
                 aria-controls={this.state.name}
                 aria-expanded={isOpen}>
                 <Alert variant={'secondary'}>
-                    <Alert.Heading>2019-02-12</Alert.Heading>
+                    <Alert.Heading>{`ID: ${symptomsSheet.ID}`}</Alert.Heading>
                     <Collapse in={this.state.isOpen}>
                     <div id={this.state.name}>
                         <p><b>Description: </b>{symptomsSheet.description}</p>

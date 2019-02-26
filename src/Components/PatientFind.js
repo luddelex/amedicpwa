@@ -22,9 +22,7 @@ class PatientFind extends React.Component {
 
     handleSubmit(event) {
 
-        // Emulate that no patient was found and you want to show create patient form. 
-        //this.setState({createPatient: true})
-
+        // Gretchen, stop trying to make fetch happen! It's not going to happen!
         fetch(`http://localhost:3000/patient/${this.state.nationalID}`).then(res => res.json())
         .then(
           (result) => {
@@ -44,17 +42,6 @@ class PatientFind extends React.Component {
               error
             });
           })
-
-        /*
-        if(this.foundPatient) {
-            // Found patient, continue to look and assessment form.
-        } else {
-            // Did not find patient, do you want to create patient?
-            this.setState(
-                {foundPatient: false}
-            )
-        }
-        */
     }
 
     handleChange(event) {
@@ -92,10 +79,17 @@ class PatientFind extends React.Component {
                     <Button variant="primary" type="button" onClick={this.handleSubmit}>Search</Button>
                 </Form>
 
+
                 {
+                    /* Changing to redirect to view patient
                     this.state.foundPatient === null ? '' : <Redirect to={{
                     pathname: '/alaf/',
                     patient: this.state.foundPatient
+                    }}
+                    />
+                    */
+                   this.state.foundPatient === null ? '' : <Redirect to={{
+                    pathname: `/patient/${this.state.nationalID}`
                     }}
                     />
                 }

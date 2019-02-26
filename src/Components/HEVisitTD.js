@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
 
-class VisitTD extends React.Component {
+class HEVisitTD extends React.Component {
     constructor(props) {
         super()
         this.state = {
@@ -16,17 +16,17 @@ class VisitTD extends React.Component {
             <tbody>
                         <tr>
                             <td>
-                                <Link to={`/hsavisit/${visit.patientID}/${visit.diagnosisID}/${visit.HSAID}/${visit.symptomID}`}>
+                                <Link to={`/hevisit/${visit.patientID}/${visit.diagnosisID}/${visit.expertID}`}>
                                 {visit.timestamp === null ? 'Unknown' : visit.timestamp}
                                 </Link>
                             </td>
                             <td>
-                                <Link to={`/hsavisit/${visit.patientID}/${visit.diagnosisID}/${visit.HSAID}/${visit.symptomID}`}>
+                                <Link to={`/hevisit/${visit.patientID}/${visit.diagnosisID}/${visit.expertID}`}>
                                 {visit.diagnosisID === null ? 'No' : 'Yes'}
                                 </Link>
                             </td>
                             <td>
-                                <Link to={`/hsavisit/${visit.patientID}/${visit.diagnosisID}/${visit.HSAID}/${visit.symptomID}`}>
+                                <Link to={`/hevisit/${visit.patientID}/${visit.diagnosisID}/${visit.expertID}`}>
                                 {this.state.hasTreatment === false ? 'No' : 'Yes'}
                                 </Link>
                             </td>
@@ -54,4 +54,4 @@ class VisitTD extends React.Component {
     }
 }
 
-export default VisitTD
+export default HEVisitTD
