@@ -8,6 +8,7 @@ import ViewPatient from '../Components/ViewPatient'
 import ViewVisit from '../Components/ViewVisit'
 
 import { Route, Switch, Redirect } from 'react-router-dom'
+import Login from '../Components/Login'
 
 export const Routes = () => {
     return (
@@ -23,6 +24,7 @@ export const Routes = () => {
             
             <Switch>
                 <Route exact path="/home" component={ScreeningForm} />
+                <Route exact path="/login" component={Login} />
                 <Route exact path="/alaf" component={ScreeningForm} />
                 <Route exact path="/alaf/review" component={reviewForm} />
                 <Route exact path="/">
@@ -32,6 +34,7 @@ export const Routes = () => {
                 <Route path="/patient/:id" component={ViewPatient} />
                 <Route path="/hsavisit/:patientID/:diagnosisID/:hsaID/:symptomID" component={ViewVisit} />
                 <Route path="/hevisit/:patientID/:diagnosisID/:heID" component={ViewVisit} />
+
             </Switch>
         </div>
     )

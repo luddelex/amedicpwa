@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 import ScreeningForm from './Components/ScreeningForm'
 import Header from './Components/Header'
 
+import AuthService from './Components/AuthService'
+import withAuth from './Components/withAuth';
+const Auth = new AuthService();
+
 class App extends Component {
   render() {
     return (
@@ -21,6 +25,11 @@ class App extends Component {
       </div>
     );
   }
+
+  handleLogout(){
+    Auth.logout()
+    this.props.history.replace('/login');
+ }
 }
 
-export default App;
+export default withAuth(App);

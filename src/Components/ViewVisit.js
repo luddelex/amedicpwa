@@ -3,6 +3,8 @@ import { Container, Alert, Button, Collapse } from 'react-bootstrap'
 import DiagnoseComponent from './DiagnoseComponent'
 import TreatmentComponent from './TreatmentComponent'
 import SymptomComponent from './SymptomComponent'
+import AuthService from './AuthService'
+import { Redirect } from 'react-router-dom'
 
 class ViewVisit extends React.Component {
     constructor(props) {
@@ -16,6 +18,7 @@ class ViewVisit extends React.Component {
         }
         this.printOutDiagnoses = this.printOutDiagnoses.bind(this)
         this.printOutTreatments = this.printOutTreatments.bind(this)
+        this.Auth = new AuthService()
     }
 
     printOutDiagnoses() {
@@ -128,6 +131,9 @@ class ViewVisit extends React.Component {
 
         return (
             <Container>
+                {
+                this.Auth.loggedIn() ? '' : <Redirect to='/login' />
+                }
                 
                 <h1>View visit {this.props.match.params.patientID}</h1>
 

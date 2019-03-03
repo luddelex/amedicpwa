@@ -11,49 +11,53 @@ class reviewForm extends React.Component {
     
 
     handleSubmit(event) {
-    event.preventDefault()
+        event.preventDefault()
 
-    var passedForm = this.props.location.alafForm
+        var passedForm = this.props.location.alafForm
 
-    var postForm = {
-            description: passedForm.description,                    // VARCHAR
-            cough: passedForm.cough,                                // BOOL
-            coughDays: passedForm.coughDays,                        // INT
-            diarrhoea: passedForm.diarrhoea,                        // BOOL
-            diarrhoeaDays: passedForm.diarrhoeaDays,                // INT
-            bloodInStool: passedForm.bloodInStool,                  // VARCHAR
-            fever: passedForm.fever,                                // INT
-            feverDays: passedForm.feverDays,                        // INT
-            convulsions: passedForm.convulsions,                    // VARCHAR
-            difficultToEatDrink: passedForm.difficultToEatDrink,    // BOOL
-            cannotEatDrink: passedForm.cannotEatDrink,              // BOOL
-            vomiting: passedForm.vomiting,                          // BOOL
-            vomitsEverything: passedForm.vomitsEverything,          // BOOL
-            redEyes: passedForm.redEyes,                            // BOOL
-            redEyesDays: passedForm.redEyesDays,                    // INT
-            difficultiesToSee: passedForm.difficultiesToSee,        // BOOL
-            difficultiesToSeeDays: passedForm.difficultiesToSeeDays,// INT
-            chestIndraw: passedForm.chestIndraw,                    // VARCHAR
-            breathingFreq: passedForm.breathingFreq,                // INT
-            sleepy: passedForm.sleepy,                              // VARCHAR
-            unconscious: passedForm.unconscious,                    // VARCHAR
-            palmarPalor: passedForm.palmarPalor,                    // VARCHAR
-            muac: passedForm.muac,                                  // VARCHAR
-            swollenFeet: passedForm.swollenFeet,                    // VARCHAR
-    }
-    
-    fetch('http://localhost:3000/symptoms/', {
+        var postForm = {
+                description: passedForm.description,                    // VARCHAR
+                cough: passedForm.cough,                                // BOOL
+                cough_days: passedForm.coughDays,                        // INT
+                diarrhoea: passedForm.diarrhoea,                        // BOOL
+                diarrhoea_days: passedForm.diarrhoeaDays,                // INT
+                blood_in_stool: passedForm.bloodInStool,                  // VARCHAR
+                fever: passedForm.fever,                                // INT
+                fever_days: passedForm.feverDays,                        // INT
+                convulsions: passedForm.convulsions,                    // VARCHAR
+                difficult_to_eat_drink: passedForm.difficultToEatDrink,    // BOOL
+                cannot_eat_drink: passedForm.cannotEatDrink,              // BOOL
+                vomiting: passedForm.vomiting,                          // BOOL
+                vomits_everything: passedForm.vomitsEverything,          // BOOL
+                redEyes: passedForm.redEyes,                            // BOOL
+                red_eyes_days: passedForm.redEyesDays,                    // INT
+                difficulties_to_see: passedForm.difficultiesToSee,        // BOOL
+                difficulties_to_see_days: passedForm.difficultiesToSeeDays,// INT
+                chest_indraw: passedForm.chestIndraw,                    // VARCHAR
+                breathing_freq: passedForm.breathingFreq,                // INT
+                sleepy: passedForm.sleepy,                              // VARCHAR
+                unconscious: passedForm.unconscious,                    // VARCHAR
+                palmar_palor: passedForm.palmarPalor,                    // VARCHAR
+                muac: passedForm.muac,                                  // VARCHAR
+                swollen_feet: passedForm.swollenFeet,                    // VARCHAR
+        }
+        
+        /*
+        fetch('http://localhost:3000/symptoms/', {
 
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(postForm)
-    })
-    
+            method: 'POST',
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postForm)
+        })
+        */
 
-    alert('Form submitted!')
+        // TODO: Implement check for errors here.
+        
+        // TODO: Implemented redirect to view the visit:
+        this.props.history.push('/patient');
     }
 
     render() {

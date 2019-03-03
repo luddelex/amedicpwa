@@ -5,6 +5,9 @@ import {Link} from 'react-router-dom'
 import HSAVisitTD from './HSAVisitTD'
 import HEVisitTD from './HEVisitTD'
 import ScreeningForm from './ScreeningForm'
+import { Redirect } from 'react-router-dom'
+
+import AuthService from './AuthService';
 
 class ViewPatient extends React.Component {
     constructor(props) {
@@ -19,6 +22,7 @@ class ViewPatient extends React.Component {
 
         this.printOutCaregivers = this.printOutCaregivers.bind(this)
         this.printOutHSAVisits = this.printOutHSAVisits.bind(this)
+        this.Auth = new AuthService()
         
     }
 
@@ -63,7 +67,7 @@ class ViewPatient extends React.Component {
     componentDidMount(){
 
         // Fetch patient object.
-        fetch(`http://localhost:3000/patient/${this.props.match.params.id}`).then(res => res.json())
+        this.Auth.fetch(`http://localhost:3000/patient/${this.props.match.params.id}`)
         .then(
           (fetchedPatient) => {
               console.log(fetchedPatient)
@@ -78,7 +82,7 @@ class ViewPatient extends React.Component {
           })
 
         // Fetch patient caregiver object.
-        fetch(`http://localhost:3000/caregiver/${this.props.match.params.id}`).then(res => res.json())
+        this.Auth.fetch(`http://localhost:3000/caregiver/${this.props.match.params.id}`)
         .then(
           (fetchedCaregiver) => {
               this.setState({
@@ -92,7 +96,7 @@ class ViewPatient extends React.Component {
           })
 
         // Fetch patient hsa visits array.
-        fetch(`http://localhost:3000/hsavisit/${this.props.match.params.id}`).then(res => res.json())
+        this.Auth.fetch(`http://localhost:3000/hsavisit/${this.props.match.params.id}`)
         .then(
           (fetchedHSAVisits) => {
               this.setState({
@@ -106,7 +110,7 @@ class ViewPatient extends React.Component {
           })
           
         // Fetch patient he visits array.
-        fetch(`http://localhost:3000/hevisit/${this.props.match.params.id}`).then(res => res.json())
+        this.Auth.fetch(`http://localhost:3000/hevisit/${this.props.match.params.id}`)
         .then(
           (fetchedHEVisits) => {
               this.setState({
@@ -124,6 +128,9 @@ class ViewPatient extends React.Component {
     render() {
         return (
             <Container>
+            {
+              this.Auth.loggedIn() ? '' : <Redirect to='/login' />
+            }
 
             <h2>Patient details</h2>
             <p><b>Name: </b>{this.state.patient.name}</p>

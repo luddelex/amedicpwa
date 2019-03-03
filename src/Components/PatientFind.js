@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import CreatePatient from './CreatePatient'
 import ScreeningForm from './ScreeningForm'
 import { Route, Switch, Redirect } from 'react-router-dom'
+import AuthService from './AuthService';
 
 class PatientFind extends React.Component {
 
@@ -18,12 +19,14 @@ class PatientFind extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleStudyIDChange = this.handleStudyIDChange.bind(this)
+
+        this.Auth = new AuthService();
     }
 
     handleSubmit(event) {
 
         // Gretchen, stop trying to make fetch happen! It's not going to happen!
-        fetch(`http://localhost:3000/patient/${this.state.nationalID}`).then(res => res.json())
+        this.Auth.fetch(`http://localhost:3000/patient/${this.state.nationalID}`)
         .then(
           (result) => {
               console.log(result)
@@ -36,6 +39,7 @@ class PatientFind extends React.Component {
           // instead of a catch() block so that we don't swallow
           // exceptions from actual bugs in components.
           (error) => {
+              console.log(error)
             this.setState({
               //isLoaded: true,
               createPatient: true,
@@ -62,6 +66,9 @@ class PatientFind extends React.Component {
     render() {
         return (
             <div class="container">
+            {
+              this.Auth.loggedIn() ? '' : <Redirect to='/login' />
+            }
                 <h1>Patient search</h1>
 
                 <Form>
@@ -81,13 +88,6 @@ class PatientFind extends React.Component {
 
 
                 {
-                    /* Changing to redirect to view patient
-                    this.state.foundPatient === null ? '' : <Redirect to={{
-                    pathname: '/alaf/',
-                    patient: this.state.foundPatient
-                    }}
-                    />
-                    */
                    this.state.foundPatient === null ? '' : <Redirect to={{
                     pathname: `/patient/${this.state.nationalID}`
                     }}
